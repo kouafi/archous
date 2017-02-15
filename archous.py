@@ -4,6 +4,7 @@ import requests
 import json
 from urllib.request import urlopen
 from urllib.parse import urlparse
+from datetime import date
 
 def main(argv):
 	path = "storage/db.json"
@@ -46,13 +47,22 @@ def main(argv):
 					    for k in data:
 					    	if k["Id"] != "":
 					    		ids.append(k["Id"])
-
+					    	if k["url"] == url:
+					    		sys.exit(
+					    			"The URL \"{0}\" has already been stored on {1}".format(
+					    				url,
+					    				time.strftime(
+					    					"%a, %d %b %Y %H:%M:%S GMT",
+					    					tuple(k["added"])
+					    				)
+					    			)
+					    		)
 					    if not ids:
 					    	itemId = 0
 					    else:
 					    	itemId = max(ids) + 1
 
-					    item = {"Id": itemId, "url": url, "added": time.time()}
+					    item = {"Id": itemId, "url": url, "added": time.gmtime()}
 
 					    data.append(item)
 					    jsonFile.seek(0)  # rewind
