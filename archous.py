@@ -7,13 +7,13 @@ from urllib.parse import urlparse
 from datetime import date
 
 def main(argv):
-	path = "storage/db.json"
+	path = "/Users/khalidouafi/projects/python3/archous/storage/db.json"
 	url = ""
 	dl = None
-	err_msg = "Usage: archous.py -u [url] -D.\nSee documentation: https://kvfi.github.io/archous/docs/0.1"
+	err_msg = "Usage: archous.py --url [url] --cat [category] -D.\nSee documentation: https://kvfi.github.io/archous/docs/0.1"
 	err_msg_url = "Looks like \"{0}\" is not reachable.\nPlease verify your Internet connection."
 	try:
-		opts, args = getopt.getopt(argv,"hDu:i",["url=", 'init'])
+		opts, args = getopt.getopt(argv,"hDu:c:i",["url=", "cat" 'init'])
 	except getopt.GetoptError:
 		print(err_msg)
 		sys.exit(2)
@@ -23,6 +23,8 @@ def main(argv):
 			sys.exit()
 		elif opt in ("-u", "--url"):
 			url = arg
+		elif opt in ("-c", "--cat"):
+			cat = arg
 		elif opt == '-D':
 			if url:
 				dl = True
@@ -62,7 +64,7 @@ def main(argv):
 					    else:
 					    	itemId = max(ids) + 1
 
-					    item = {"Id": itemId, "url": url, "added": time.gmtime()}
+					    item = {"Id": itemId, "url": url, "added": time.gmtime(), "category": cat}
 
 					    data.append(item)
 					    jsonFile.seek(0)  # rewind
