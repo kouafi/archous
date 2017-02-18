@@ -8,7 +8,11 @@ To add a link your JSON file, just type
 python archous.py -u http://example.com
 ```
 ### Add a category
+```
 python archous.py -u http://example.com -c website
+```
 
 ### Download a link under HTML format
+```
 python archous.py -u http://example.com -D
+```
