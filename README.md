@@ -1,6 +1,9 @@
 # Archous
 Archous is a lightweight Python script for archiving Internet links using JSON files. It supports classification by date, category, tags.
 
+## Requierements
+Python 3+
+
 ## Usage
 ### Default usage
 To add a link your JSON file, just type
