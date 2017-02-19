@@ -7,13 +7,13 @@ from urllib.parse import urlparse
 from datetime import date
 
 def main(argv):
-	path = "/Users/khalidouafi/projects/python3/archous/storage/db.json"
+	path = os.path.dirname(os.path.abspath(__file__)) + "/storage/db.json"
 	url = ""
 	dl = None
 	err_msg = "Usage: archous.py --url [url] --cat [category] -D.\nSee documentation: https://kvfi.github.io/archous/docs/0.1"
 	err_msg_url = "Looks like \"{0}\" is not reachable.\nPlease verify your Internet connection."
 	try:
-		opts, args = getopt.getopt(argv,"hDu:c:i",["url=", "cat" 'init'])
+		opts, args = getopt.getopt(argv,"hDu:c:ri",["url=", "cat" 'init'])
 	except getopt.GetoptError:
 		print(err_msg)
 		sys.exit(2)
@@ -25,6 +25,7 @@ def main(argv):
 			url = arg
 		elif opt in ("-c", "--cat"):
 			cat = arg
+			
 		elif opt == '-D':
 			if url:
 				dl = True
@@ -70,6 +71,7 @@ def main(argv):
 					    jsonFile.seek(0)  # rewind
 					    jsonFile.write(json.dumps(data))
 					    jsonFile.truncate()
+					    print("{0} has been successfully added under “{1}”".format(url, cat))
 			except requests.ConnectionError:
 				print(err_msg_url.format(url))
 	else:
